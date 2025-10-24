@@ -1,5 +1,7 @@
+mod activation_relu;
 mod layer_dense;
 
+use activation_relu::ActivationReLu;
 use layer_dense::LayerDense;
 
 fn main() {
@@ -12,9 +14,11 @@ fn main() {
 
     let mut layer_one = LayerDense::build_layer(x[0].len(), 5);
     let mut layer_two = LayerDense::build_layer(layer_one.weights.len(), 2);
+    let mut activation_one = ActivationReLu::build_layer();
 
     layer_one.forward(&x);
     layer_two.forward(&layer_one.output);
+    activation_one.forward(&layer_two.output);
 
-    println!("{:?}", layer_two.output);
+    println!("{:?}", activation_one.output);
 }
